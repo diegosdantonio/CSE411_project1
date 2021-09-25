@@ -384,7 +384,7 @@ int main(int argc, char *argv[]) {
 
   const char *color[5] = {"b-", "r-", "g-","k-","m-"};
 
-  int size = 4096; // # rows in the matrix
+  int size = 400; // # rows in the matrix
   std::vector<int> size2 = { 3, 20, 30, 150, 300, 600, 1000, 2048, 4096};
 //    std::vector<int> size2 = { 3, 20, 30, 150};
     std::vector<double> y1(size2.size());
@@ -404,15 +404,15 @@ int main(int argc, char *argv[]) {
 
 
 
-//    for (int j = 0; j < grain_size2.size(); ++j) {
+    for (int j = 0; j < grain_size2.size(); ++j) {
 //        threads = threads2[j];
 
-//        grain_size = grain_size2[j];
-        for (int i = 0; i < size2.size(); ++i) {
-            size = size2[i];
+        grain_size = grain_size2[j];
+        for (int i = 0; i < threads2.size(); ++i) {
+//            size = size2[i];
 //            x1[i] =
-//            threads = threads2[i];
-//            x1[i] = threads;
+            threads = threads2[i];
+            x1[i] = threads;
             // Print the configuration... this makes results of scripted experiments
             // much easier to parse
             std::cout << "r,n,g,p,t,a = " << seed << ", " << size << ", " << range << ", "
@@ -458,11 +458,11 @@ int main(int argc, char *argv[]) {
 
             y1[i] = time_span.count();
         }
-//        std::string var = std::to_string(grain_size2[j]);
-//        plt::loglog(x1,y1,color[j]);
-//        plt::named_plot("Grain size " + var,x1,y1,color[j]);
-//    }
-    plt::loglog(size2,y1);
+        std::string var = std::to_string(grain_size2[j]);
+        plt::loglog(x1,y1,color[j]);
+        plt::named_plot("Grain size " + var,x1,y1,color[j]);
+    }
+//    plt::loglog(size2,y1);
 //    plt::xlabel("Number of thread");
     plt::ylabel("Time(ms)");
     plt::legend();
